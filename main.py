@@ -1,15 +1,14 @@
 import cv2
 from cv2 import dnn_superres
-supres = dnn_superres.DnnSuperResImpl_create()
+super_res = dnn_superres.DnnSuperResImpl_create()
 
-image = cv2.imread('sample.jpeg')
+img = cv2.imread('sample.jpeg')
 
 path = "LapSRN_x8.pb"
-supres.readModel(path)
+super_res.readModel(path)
 
+super_res.setModel("lapsrn", 8)
+out_img = super_res.upsample(img)
 
-supres.setModel("lapsrn", 8)
-result = supres.upsample(image)
-
-cv2.imwrite("upscaled.jpeg", result)
-cv2.imwrite("./upscaled.png", result)
+cv2.imwrite("upscaled.jpeg", out_img)
+cv2.imwrite("./upscaled.png", out_img)
